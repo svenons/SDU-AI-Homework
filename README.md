@@ -17,7 +17,7 @@ This repository is maintained as a personal archive of course materials and work
 ## 📝 Credits
 
 All lab PDFs and official course materials are the intellectual property of Dr. Serkan Ayvaz and/or SDU. Full credit is given to the original creator.  
-Student solutions and content are authored by the repository owner.
+Solutions are either given by the course or authored by me.
 
 ## ⚠️ Takedown Notice
 
