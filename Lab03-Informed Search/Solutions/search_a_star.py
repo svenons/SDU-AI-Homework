@@ -189,10 +189,3 @@ if __name__ == '__main__':
     searcher = Searcher('A', goal_state, state_space=StateSpace(input_state_space))
     print("A-star-search")
     searcher.run(insert_as_first=True) 
-
-
-
-
-
-
-

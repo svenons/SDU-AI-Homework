@@ -186,11 +186,4 @@ if __name__ == '__main__':
     goal_state = ['K', 'L']
     searcher = Searcher('A', goal_state, state_space=StateSpace(input_state_space))
     print("Greedy-best-first")
-    searcher.run(insert_as_first=True) 
-
-
-
-
-
-
-
+    searcher.run(insert_as_first=True)
