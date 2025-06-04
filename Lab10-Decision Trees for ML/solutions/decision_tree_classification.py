@@ -17,7 +17,7 @@ os.chdir(path)
  
 
 # Importing the dataset 
-dataset = pd.read_csv('./social_network_ads.csv')
+dataset = pd.read_csv('Lab10-Decision Trees for ML\social_network_ads.csv')
 X = dataset.iloc[:, :-1].values
 y = dataset.iloc[:, -1].values
 
@@ -64,7 +64,27 @@ new_data=[[30,87000]]
 prediction = classifier.predict(new_data)
 print(f"Prediction for new data: {prediction}")
  
-# TODO: Observe the plotted tree to see if it is too complex or not
-# write a code check whether or not there is an overfitting
-# if the model is overfitting, fix the overfitting and show the plot results for before and after
+# Accuracy on Training Data
+y_train_pred = classifier.predict(X_train)
+train_accuracy = accuracy_score(y_train, y_train_pred)
+print(f"Training Accuracy: {train_accuracy}")
+print(f"Testing Accuracy: {accuracy}")  # already computed above
 
+# Check for Overfitting
+if train_accuracy - accuracy > 0.1:
+    print("Potential overfitting detected (high training accuracy vs. lower test accuracy).")
+else:
+    print("No significant overfitting detected.")
+
+# Fix Overfitting by Pruning (limit tree depth)
+pruned_classifier = DecisionTreeClassifier(criterion='entropy', max_depth=3, random_state=0)
+pruned_classifier.fit(X_train, y_train)
+y_test_pruned = pruned_classifier.predict(X_test)
+pruned_accuracy = accuracy_score(y_test, y_test_pruned)
+print(f"Pruned Tree Accuracy: {pruned_accuracy}")
+
+# Visualize the Pruned Tree
+plt.figure(figsize=(20,15))
+tree.plot_tree(pruned_classifier, class_names=['no', 'yes'], filled=True, rounded=True)
+plt.title("Pruned Decision Tree (max_depth=3)")
+plt.show()
