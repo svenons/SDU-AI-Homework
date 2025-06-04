@@ -125,6 +125,9 @@ def car_diagnosis_network():
 
     conditionals_vars = {'DT': 'true'}
     conditionals_evidents = {'V': 'true', 'SMS': 'false'}
+    # P(FTL=true∣HC=true)
+    #conditionals_vars = {'FTL': 'true'}
+    #conditionals_evidents = {'HC': 'true'}
 
     print_conditional_probability(network, conditionals_vars, conditionals_evidents)
 
