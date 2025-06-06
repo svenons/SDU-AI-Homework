@@ -68,6 +68,7 @@ def car_diagnosis_network():
 
     dt_prob = {(): (0.3, 0.7)}
     em_prob = {(): (0.3, 0.7)}
+    e_prob = {(): (0.9, 0.1)}
     ftl_prob = {(): (0.2, 0.8)}
 
     v_prob = {
@@ -80,6 +81,13 @@ def car_diagnosis_network():
         ('true', 'false'): (0.6, 0.4),
         ('false', 'true'): (0.3, 0.7),
         ('false', 'false'): (0.7, 0.3)
+    }
+
+    wn_prob = {
+        ('true', 'true'): (0.9, 0.1),
+        ('true', 'false'): (0.4, 0.6),
+        ('false', 'true'): (0.7, 0.3),
+        ('false', 'false'): (0.1, 0.9)
     }
 
     hc_prob = {
@@ -95,13 +103,15 @@ def car_diagnosis_network():
 
     dt = Variable('DT', ('true', 'false'), dt_prob)
     em = Variable('EM', ('true', 'false'), em_prob)
+    e = Variable('E', ('true', 'false'), e_prob)
     ftl = Variable('FTL', ('true', 'false'), ftl_prob)
 
     v = Variable('V', ('true', 'false'), v_prob, [dt])
     sms = Variable('SMS', ('true', 'false'), sms_prob, [dt, em])
     hc = Variable('HC', ('true', 'false'), hc_prob, [dt, ftl, em])
+    wn = Variable('WN', ('true', 'false'), wn_prob, [dt, em])
 
-    variables = [dt, em, ftl, v, sms, hc]
+    variables = [dt, em, e, ftl, v, sms, hc, wn]
 
     network = BayesianNetwork()
     network.set_variables(variables)
@@ -112,22 +122,25 @@ def car_diagnosis_network():
     print('')
 
     joint_values = {
-        'DT': 'true',
+        'DT': 'false',
         'EM': 'true',
         'FTL': 'false',
-        'V': 'true',
+        'V': 'false',
         'SMS': 'false',
-        'HC': 'true'
+        'HC': 'false',
+        'WN': 'true',
+        'E': 'true',
     }
     print_joint_probability(network, joint_values)
 
     print('')
 
-    conditionals_vars = {'DT': 'true'}
-    conditionals_evidents = {'V': 'true', 'SMS': 'false'}
+    #conditionals_vars = {'DT': 'true'}
+    #conditionals_evidents = {'V': 'true', 'SMS': 'false'}
     # P(FTL=true∣HC=true)
-    #conditionals_vars = {'FTL': 'true'}
-    #conditionals_evidents = {'HC': 'true'}
+    # P(EM | SMS)
+    conditionals_vars = {'E': 'true'}
+    conditionals_evidents = {'SMS': 'true', 'WN': 'true'}
 
     print_conditional_probability(network, conditionals_vars, conditionals_evidents)
 

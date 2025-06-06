@@ -75,8 +75,8 @@ class HiddenMarkovModel:
         return [idx_to_state[i] for i in path_idx]
 
 def run_robot_example():
-    states = ["A", "B", "C"]
-    observations = ["Movement", "No Movement"]
+    states = ["1", "2", "3", "4", "5", "6"]
+    observations = ["Ice Cream", "No Movement"]
 
     initial_probs = {"A": 0.4, "B": 0.4, "C": 0.2}
     transition_probs = {
@@ -126,9 +126,7 @@ def run_ice_cream_example():
 
     # Observation sequences (drop None and convert ints to strings)
     observation_sets = [
-        ["3", "1", "3"],
-        ["3", "3", "1", "1", "2", "2", "3", "1", "3"],
-        ["3", "3", "1", "1", "2", "3", "3", "1", "2"],
+        ["1", "2", "1", "3", "2", "1"],
     ]
 
     # Create the HMM
@@ -144,5 +142,5 @@ def run_ice_cream_example():
         print()
 
 if __name__ == '__main__':
-    run_robot_example()
-    #run_ice_cream_example()
+    #run_robot_example()
+    run_ice_cream_example()

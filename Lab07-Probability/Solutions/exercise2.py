@@ -2,10 +2,10 @@ from exercise1 import Disease, MedicalTest
 
 if __name__ == "__main__":
     # Define the disease with a prevalence of 1 in 10,000
-    disease = Disease(1/10000)
+    disease = Disease(1/100)
 
     # Define the medical test with 99% sensitivity and 1% false positive rate
-    test = MedicalTest(0.99, 0.01)
+    test = MedicalTest(0.90, 0.05)
 
     # Calculate the probability of having the disease given a positive test result
     probability = test.bayes_theorem(disease)
